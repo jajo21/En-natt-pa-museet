@@ -14,7 +14,7 @@ namespace tests
             var artwork1 = new Art("En hund bakom ratten", "En bild som måste upplevas för att förstås", "Lyret");
 
             // Act
-            room1.AddArtToRoom(artwork1);
+            room1.AddContent(artwork1);
             var expected = 1;
 
             // Assert
@@ -32,10 +32,10 @@ namespace tests
             var artwork2 = new Art("En katt bakom flötet", "Underbara katten", "Kattskrället");
 
             // Act
-            room1.AddArtToRoom(artwork1);
-            room2.AddArtToRoom(artwork2);
-            museum.AddRoomToMuseum(room1);
-            museum.AddRoomToMuseum(room2);
+            room1.AddContent(artwork1);
+            room2.AddContent(artwork2);
+            museum.AddContent(room1);
+            museum.AddContent(room2);
 
             var museumString = museum.GetRoomAndArtStrings();
 
@@ -56,10 +56,10 @@ namespace tests
             var artwork2 = new Art("En katt bakom flötet", "Underbara katten", "Kattskrället");
 
             // Act
-            room1.AddArtToRoom(artwork1);
-            room2.AddArtToRoom(artwork2);
-            museum.AddRoomToMuseum(room1);
-            museum.AddRoomToMuseum(room2);
+            room1.AddContent(artwork1);
+            room2.AddContent(artwork2);
+            museum.AddContent(room1);
+            museum.AddContent(room2);
 
             var roomString = museum.GetArtStringsFromRoom(room1);
 
@@ -77,13 +77,13 @@ namespace tests
             var artwork2 = new Art("En katt bakom flötet", "Underbara katten", "Kattskrället");
 
             // Act
-            room1.AddArtToRoom(artwork1);
-            room1.AddArtToRoom(artwork2);
-            museum.AddRoomToMuseum(room1);
+            room1.AddContent(artwork1);
+            room1.AddContent(artwork2);
+            museum.AddContent(room1);
 
             Assert.Equal(2, room1.GetRoomArtListCount()); // Testar innan delete
 
-            room1.DeleteArtFromRoom(artwork1);
+            room1.DeleteContent(artwork1);
 
             int artCount = room1.GetRoomArtListCount();
             
@@ -97,8 +97,8 @@ namespace tests
             // Arrange
             var museum = new Museum("Museum1");
             // Act
-            museum.AddRoomToMuseum(new Room("Room1"));
-            museum.AddRoomToMuseum(new Room("Room2"));
+            museum.AddContent(new Room("Room1"));
+            museum.AddContent(new Room("Room2"));
 
             Assert.Equal(2, museum.GetRoomsListCount());
             
@@ -110,10 +110,10 @@ namespace tests
             var museum = new Museum("Museum1");
             var room1 = new Room("Room1");
             // Act
-            museum.AddRoomToMuseum(room1);
-            museum.AddRoomToMuseum(new Room("Room2"));
+            museum.AddContent(room1);
+            museum.AddContent(new Room("Room2"));
 
-            museum.DeleteRoomInMuseum(room1);
+            museum.DeleteContent(room1);
 
             Assert.Equal(1, museum.GetRoomsListCount());
         }
@@ -127,8 +127,8 @@ namespace tests
             var museum2 = new Museum("Museum2");
             
             // Act
-            MuseumStorage.AddMuseumToDictionary(museum1);
-            MuseumStorage.AddMuseumToDictionary(museum2);
+            MuseumStorage.AddContent(museum1);
+            MuseumStorage.AddContent(museum2);
 
             Assert.Equal(2, MuseumStorage.GetMuseumCount());
             
@@ -142,10 +142,10 @@ namespace tests
             var artwork3 = new Art("KonstExempel", "Konstförklaring", "Konstförfattare");
             var artwork4 = new Art("KonstExempel2", "Konstförklaring2", "Konstförfattare2");
 
-            room1.AddArtToRoom(artwork1);
-            room1.AddArtToRoom(artwork2);
-            room1.AddArtToRoom(artwork3);
-            room1.AddArtToRoom(artwork4); //Har lagt till 4 konstvärk
+            room1.AddContent(artwork1);
+            room1.AddContent(artwork2);
+            room1.AddContent(artwork3);
+            room1.AddContent(artwork4); //Har lagt till 4 konstvärk
 
             var roomCount = room1.GetRoomArtListCount(); 
 
@@ -159,9 +159,9 @@ namespace tests
             var artwork2 = new Art("En katt bakom flötet", "Underbara katten", "Kattskrället");
             var artwork3 = new Art("KonstExempel", "Konstförklaring", "Konstförfattare");
 
-            room1.AddArtToRoom(artwork1);
-            room1.AddArtToRoom(artwork2);
-            room1.AddArtToRoom(artwork3);
+            room1.AddContent(artwork1);
+            room1.AddContent(artwork2);
+            room1.AddContent(artwork3);
 
             Assert.True(room1.isArtListFull()); //Roomcounten borde ändå vara 3 eftersom den inte kan lägga till 4
         }
