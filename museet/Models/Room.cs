@@ -13,12 +13,16 @@ namespace Museet.Models
             this.roomName = roomName;
             this.artList = new List<Art>();
         }
-        public void AddArtToRoom(Art artToAdd)
+        public void AddContent(Art artToAdd)
         {
             if (artList.Count < 3)
             {
                 artList.Add(artToAdd);
             }
+        }
+        public void DeleteContent(Art artToDelete)
+        {
+            artList.Remove(artToDelete);
         }
         public string GetRoomNameString()
         {
@@ -40,10 +44,6 @@ namespace Museet.Models
             }
             else return false;
 		}
-        public void DeleteArtFromRoom(Art artToDelete)
-        {
-            artList.Remove(artToDelete);
-        }
         public int GetRoomArtListCount()
         {
             return artList.Count;

@@ -14,7 +14,7 @@ namespace Museet.Models
             museumDictionary = new Dictionary<string, Museum>();
             this.visiting = "";
         }
-        public void AddMuseumToDictionary(Museum museum)
+        public void AddContent(Museum museum)
         {
             string museumName = museum.GetMuseumName();
             museumDictionary.Add(museumName, museum);
