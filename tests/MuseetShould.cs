@@ -150,7 +150,20 @@ namespace tests
             var roomCount = room1.GetRoomArtListCount(); 
 
             Assert.Equal(3, roomCount); //Roomcounten borde ändå vara 3 eftersom den inte kan lägga till 4
-            
+        }
+        [Fact]
+        public void CheckIfRoomIsFull()
+        {
+            var room1 = new Room("Room1");
+            var artwork1 = new Art("En hund bakom ratten", "En bild som måste upplevas för att förstås", "Lyret");
+            var artwork2 = new Art("En katt bakom flötet", "Underbara katten", "Kattskrället");
+            var artwork3 = new Art("KonstExempel", "Konstförklaring", "Konstförfattare");
+
+            room1.AddArtToRoom(artwork1);
+            room1.AddArtToRoom(artwork2);
+            room1.AddArtToRoom(artwork3);
+
+            Assert.True(room1.isArtListFull()); //Roomcounten borde ändå vara 3 eftersom den inte kan lägga till 4
         }
     }
 }

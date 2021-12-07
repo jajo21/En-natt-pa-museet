@@ -13,7 +13,13 @@ namespace Museet.Models
             this.roomName = roomName;
             this.artList = new List<Art>();
         }
-
+        public void AddArtToRoom(Art artToAdd)
+        {
+            if (artList.Count < 3)
+            {
+                artList.Add(artToAdd);
+            }
+        }
         public string GetRoomNameString()
         {
             return this.roomName;
@@ -26,14 +32,14 @@ namespace Museet.Models
             }
             else return false;
         }
-        public void AddArtToRoom(Art artToAdd)
-        {
-            if (artList.Count < 3)
+		public bool isArtListFull()
+		{
+			if (artList.Count == 3)
             {
-                artList.Add(artToAdd);
+                return true;
             }
-            //else throw new Exception ("To many paintings"); // ? Ska detta va här?
-        }
+            else return false;
+		}
         public void DeleteArtFromRoom(Art artToDelete)
         {
             artList.Remove(artToDelete);
