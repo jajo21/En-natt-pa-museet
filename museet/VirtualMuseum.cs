@@ -23,11 +23,28 @@ namespace Museet
             switch (verb)
             {
                 case "select":
-                    SelectMuseum(options[0]); // mu select [museum-namn], för att ta sig in i valt museum
+                    if(options.Length == 0)
+                    {
+                        System.Console.WriteLine("[MU] Inget museum valt. Skriv [mu help] för hjälp!");
+                        throw new Exception("Mu error!");
+                    }
+                    else if(!museumStorage.GetMuseumDictionary().ContainsKey(options[0])) //Går ej att göra såhär.. Får lösas på annat sätt
+                    {
+                        Console.WriteLine("Museumet finns inte, skriv [mu show museums] för att se vilka museum som finns tillgängliga.");
+                        Console.WriteLine("Eller skriv [mu help] för att se överiga kommandon.");
+                    }
+                    else 
+                    {
+                         SelectMuseum(options[0]); // mu select [museum-namn], för att ta sig in i valt museum
+                    }
                     break;
                 case "show":
-
-                    if (options[0] == "rooms")
+                    if(options.Length == 0)
+                    {
+                        System.Console.WriteLine("[MU] Inget av de existerande kommandona för att visa museer, rum eller konstverk är valda. Skriv [mu help] för hjälp!");
+                        throw new Exception("Mu error!");
+                    }
+                    else if (options[0] == "rooms")
                     {
                         ShowSelectedMuseum(); // mu show rooms, för att vissa alla rum i det museumet man är i för stunden
                     }
@@ -42,11 +59,16 @@ namespace Museet
                     }
                     else
                     {
-                        Console.WriteLine("Okänt kommando, skriv \"mu help\" för att se tillgänliga kommandon.");
+                        Console.WriteLine("Okänt kommando, skriv [mu help] för att se tillgänliga kommandon.");
                     }
                     break;
                 case "add":
-                    if (options[0] == "museum")
+                    if(options.Length == 0)
+                    {
+                        System.Console.WriteLine("[MU] Inget av de existerande kommandona för att lägga till museum, rum eller konstverk är valda. Skriv [mu help] för hjälp!");
+                        throw new Exception("Mu error!");
+                    }
+                    else if (options[0] == "museum")
                     {
                         AddNewMuseum(options[1]); // mu add museum [museum-namn], för att lägga till ett nytt museum
                     }
@@ -58,15 +80,28 @@ namespace Museet
                     {
                         AddNewArt(options[1]); // mu add art [room-name], för att ta användaren in i en metod där du får lägga till info om konsten
                     }
+                    else 
+                    {
+                        Console.WriteLine("Okänt kommando, skriv [mu help] för att se tillgänliga kommandon.");
+                    }
                     break;
                 case "delete":
-                    if (options[0] == "art")
+                    if(options.Length == 0)
+                    {
+                        System.Console.WriteLine("[MU] Inget av de existerande kommandona för att ta bort rum eller konstverk är valda. Skriv [mu help] för hjälp!");
+                        throw new Exception("Mu error!");
+                    }
+                    else if (options[0] == "art")
                     {
                         DeleteArtFromRoom(options[1], options[2]); // mu delete art [room-name] [art-place], för att ta bort konst på vald plats i rummet
                     }
                     else if (options[0] == "room")
                     {
                         DeleteRoomFromMuseum(options[1]); // mu delete room [room-name], för att ta bort rum från museet, rummet måste vara tomt 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Okänt kommando, skriv [mu help] för att se tillgänliga kommandon.");
                     }
                     break;
                 case "help":
@@ -117,12 +152,18 @@ namespace Museet
                 {
                     if (museumStorage.GetVisitingMuseumName() == museum.Key)
                     {
+                        bool roomIsInMuseum = false;
                         foreach (var room in museum.Value.GetRoomList())
                         {
                             if (roomName == room.GetRoomNameString())
                             {
                                 Console.WriteLine($"I rummet {room.GetRoomNameString()} finns följande konst: \n{room.GetAllArtInRoomString()}");
+                                roomIsInMuseum = true;
                             }
+                        }
+                        if(!roomIsInMuseum) 
+                        {
+                            Console.WriteLine("Rummet finns tyvärr inte i det här museet, var god försök med ett annat rum.");
                         }
                     }
                 }
@@ -181,8 +222,10 @@ namespace Museet
                     {
                         if (museumStorage.GetVisitingMuseumName() == museum.Key)
                         {
+                            bool roomIsInMuseum = false;
                             foreach (var room in museum.Value.GetRoomList())
                             {
+                                
                                 if (roomName == room.GetRoomNameString())
                                 {
                                     if (room.isArtListFull())
@@ -200,8 +243,13 @@ namespace Museet
 
                                         room.AddContent(new Art(title, description, artist));
                                         Console.WriteLine("Konst tillagt i rum " + room.GetRoomNameString());
+                                        roomIsInMuseum = true;
                                     }
                                 }
+                            }
+                            if(!roomIsInMuseum)
+                            {
+                                Console.WriteLine("Rummet finns tyvärr inte i det här museet, var god försök med ett annat rum."); 
                             }
                         }
                     }
@@ -220,6 +268,7 @@ namespace Museet
                 {
                     if (museumStorage.GetVisitingMuseumName() == museum.Key)
                     {
+                        bool roomIsInMuseum = false;
                         foreach (var room in museum.Value.GetRoomList())
                         {
                             if (roomName == room.GetRoomNameString())
@@ -228,6 +277,7 @@ namespace Museet
                                 {
                                     room.DeleteContent(room.GetArtList()[Convert.ToInt32(artPosition) - 1]);
                                     Console.WriteLine($"Konstverket är nu borttaget!");
+                                    roomIsInMuseum = true;
                                 }
                                 catch
                                 {
@@ -235,6 +285,10 @@ namespace Museet
                                     Console.WriteLine("Om konsten du vill ta bort finns på plats 1 i rummet. Skriv 1 efter rumsnamnet.");
                                 }
                             }
+                        }
+                        if(!roomIsInMuseum)
+                        {
+                            Console.WriteLine("Rummet finns tyvärr inte i det här museet, var god försök med ett annat rum.");
                         }
                     }
                 }
@@ -252,7 +306,7 @@ namespace Museet
                 {
                     if (museumStorage.GetVisitingMuseumName() == museum.Key)
                     {
-
+                        bool roomIsInMuseum = false;
                         foreach (var room in museum.Value.GetRoomList())
                         {
                             if (roomName == room.GetRoomNameString())
@@ -261,6 +315,7 @@ namespace Museet
                                 {
                                     museum.Value.DeleteContent(room);
                                     Console.WriteLine($"Rummet {room.GetRoomNameString()} är nu borttaget");
+                                    roomIsInMuseum = true;
                                     break;
                                 }
                                 catch (Exception ex)
@@ -268,6 +323,10 @@ namespace Museet
                                     System.Console.WriteLine(ex.Message);
                                 }
                             }
+                        }
+                        if(!roomIsInMuseum)
+                        {
+                            Console.WriteLine("Rummet finns tyvärr inte i det här museet, var god försök med ett annat rum.");
                         }
                     }
                 }
@@ -291,7 +350,7 @@ namespace Museet
             System.Console.WriteLine(" mu add art [room-name] # Lägger till ett nytt konstverk i rummet du väljer, du får lägga till information om konstverket efter du har genomfört kommandot.");
 
             System.Console.WriteLine("\n[delete]");
-            System.Console.WriteLine(" mu delete art [room-name] [art-place] # Du väljer vilket konstverk du vill ta bort på en plats i ett rum.");
+            System.Console.WriteLine(" mu delete art [room-name] [art-place] # Du väljer vilket konstverk du vill ta bort på vilken plats i ett rum.");
             System.Console.WriteLine(" mu delete room [room-name] # Du väljer vilket rum du vill ta bort i museet. (Rummet måste vara tomt).");
 
             System.Console.WriteLine("\n[help]");
