@@ -25,12 +25,14 @@ namespace Museet.Models
             string museumName = "";
             foreach(var museum in museumDictionary)
             {
-               museumName += $"{museum.Key}\n";
+                if(visiting == museum.Key) {
+                    museumName += $"{museum.Key} [Du är här]\n";
+                }
+                else {
+                   museumName += $"{museum.Key}\n"; 
+                }
             }
             return museumName;
-        }
-        public int GetMuseumCount(){
-            return museumDictionary.Count;
         }
         public void SetVisitingMuseum(string input) {
             foreach(var museum in museumDictionary)
@@ -47,6 +49,9 @@ namespace Museet.Models
         public Dictionary<string, Museum> GetMuseumDictionary () 
         {
             return museumDictionary;
+        }
+        public int GetMuseumCount() {
+            return museumDictionary.Count;
         }
     }
 }
