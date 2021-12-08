@@ -15,7 +15,7 @@ namespace Museet.Models
         }
         public void AddContent(Art artToAdd)
         {
-            if (artList.Count < 3)
+            if (!isArtListFull()) // ifsats överflöding i nuvarande uppbyggnad, men ställer inte till något
             {
                 artList.Add(artToAdd);
             }
@@ -58,7 +58,7 @@ namespace Museet.Models
             int count = 1;
             if (isArtListEmpty())
             {
-                artString += "Rummet är tomt";
+                artString += "-- Rummet är tomt -- \n";
             }
             else
             {

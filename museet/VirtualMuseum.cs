@@ -7,30 +7,12 @@ namespace Museet
     internal class VirtualMuseumProgram : IApplication
     {
         MuseumStorage museumStorage;
+        TestMuseum testMuseum; 
 
         public VirtualMuseumProgram()
         {
             museumStorage = new MuseumStorage();
-            var museum1 = new Museum("museum1");
-            var museum2 = new Museum("museum2");
-            var room1 = new Room("room1");
-            var room2 = new Room("room2");
-            var room3 = new Room("room3");
-            var artwork1 = new Art("En hund bakom ratten", "En bild som måste upplevas för att förstås", "Lyret");
-            var artwork2 = new Art("En katt bakom flötet", "Underbara katten", "Kattskrället");
-            var artwork3 = new Art("KonstTitel", "Konstbeskrivning", "Konstnär");
-            var artwork4 = new Art("KonstTitel2", "Konstbeskrivning2", "Konstnär2");
-            museumStorage.AddContent(museum1);
-            museumStorage.AddContent(museum2);
-            museum1.AddContent(room1);
-            museum1.AddContent(room2);
-            museum2.AddContent(room3);
-            room1.AddContent(artwork1);
-            room1.AddContent(artwork2);
-            room2.AddContent(artwork3);
-            room2.AddContent(artwork4);
-            room3.AddContent(artwork3);
-            room3.AddContent(artwork4);
+            testMuseum = new TestMuseum(museumStorage); // Frivillig att använda, lägger till ett testmuseum.
         }
 
         public void Run(string verb, string[] options)
@@ -44,6 +26,7 @@ namespace Museet
                     SelectMuseum(options[0]); // mu select [museum-namn], för att ta sig in i valt museum
                     break;
                 case "show":
+
                     if (options[0] == "rooms")
                     {
                         ShowSelectedMuseum(); // mu show rooms, för att vissa alla rum i det museumet man är i för stunden
@@ -51,19 +34,23 @@ namespace Museet
                     else if (options[0] == "room")
                     {
                         ShowArtInSelectedRoom(options[1]); // mu show room [rums-namn], för att visa konstverk i rummet.
-                    } 
+                    }
                     else if (options[0] == "museums")
                     {
-                        Console.WriteLine($"Det här är museumen du kan välja mellan:");
+                        Console.WriteLine($"Det här är de museer du kan välja mellan:");
                         Console.WriteLine(museumStorage.GetAllMuseumNames()); // mu show museums, för att visa alla tillgängliga museum.
+                    }
+                    else
+                    {
+                        Console.WriteLine("Okänt kommando, skriv \"mu help\" för att se tillgänliga kommandon.");
                     }
                     break;
                 case "add":
-                    if (options[0] == "museum") 
+                    if (options[0] == "museum")
                     {
                         AddNewMuseum(options[1]); // mu add museum [museum-namn], för att lägga till ett nytt museum
                     }
-                    else if (options[0] == "room") 
+                    else if (options[0] == "room")
                     {
                         AddNewRoom(options[1]); // mu add room [room-name], för att lägga till ett nytt rum i nuvarande museum
                     }
@@ -93,13 +80,10 @@ namespace Museet
         }
         public void SelectMuseum(string museumChoice)
         {
-            foreach (var museum in museumStorage.GetMuseumDictionary())
+            if (museumChoice == museumStorage.GetMuseumDictionary()[museumChoice].GetMuseumName())
             {
-                if (museumChoice == museum.Key)
-                {
-                    museumStorage.SetVisitingMuseum(museumChoice);
-                    Console.WriteLine($"Du är nu på museumet {museumChoice}!");
-                }
+                museumStorage.SetVisitingMuseum(museumChoice);
+                Console.WriteLine($"Du är nu på museumet {museumChoice}!");
             }
         }
         private void ShowSelectedMuseum()
@@ -242,13 +226,13 @@ namespace Museet
                             {
                                 try
                                 {
-                                    room.GetArtList().Remove(room.GetArtList()[Convert.ToInt32(artPosition) - 1]); 
+                                    room.DeleteContent(room.GetArtList()[Convert.ToInt32(artPosition) - 1]);
                                     Console.WriteLine($"Konstverket är nu borttaget!");
                                 }
                                 catch
                                 {
                                     Console.WriteLine("Du måste skriva in vilken konstplats du vill ta bort i valt rum.");
-                                    Console.WriteLine("Om konsten du vill ta bort finns på plats 1 i rummet. Skriv 1 efter rumsnamnet");
+                                    Console.WriteLine("Om konsten du vill ta bort finns på plats 1 i rummet. Skriv 1 efter rumsnamnet.");
                                 }
                             }
                         }
@@ -268,19 +252,20 @@ namespace Museet
                 {
                     if (museumStorage.GetVisitingMuseumName() == museum.Key)
                     {
+
                         foreach (var room in museum.Value.GetRoomList())
                         {
                             if (roomName == room.GetRoomNameString())
                             {
-                                if (room.isArtListEmpty())
+                                try
                                 {
-                                    museum.Value.GetRoomList().Remove(room);
+                                    museum.Value.DeleteContent(room);
                                     Console.WriteLine($"Rummet {room.GetRoomNameString()} är nu borttaget");
                                     break;
                                 }
-                                else
+                                catch (Exception ex)
                                 {
-                                    Console.WriteLine("Rummet är inte tomt. Var god ta bort all konst innan du kan ta bort rummet.");
+                                    System.Console.WriteLine(ex.Message);
                                 }
                             }
                         }

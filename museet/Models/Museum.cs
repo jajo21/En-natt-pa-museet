@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace Museet.Models
 {
-	// TODO: Needs further work
    public class Museum
 	{
         List<Room> museumRooms;
@@ -20,10 +19,11 @@ namespace Museet.Models
         }
         public void DeleteContent(Room roomToDelete)
         {
-            if(roomToDelete.GetRoomArtListCount() < 1)
+            if(roomToDelete.isArtListEmpty())
             {
                this.museumRooms.Remove(roomToDelete); 
             }
+            else throw new Exception ("Rummet är inte tomt. Var god ta bort all konst innan du kan ta bort rummet.");
         }
         public string GetMuseumName() {
             return this.museumName;
@@ -41,30 +41,9 @@ namespace Museet.Models
             }
             return roomString;
         }        
-        public string GetArtStringsFromRoom(Room room)
-        {
-            string artString = "";
-            foreach(var artRoom in this.museumRooms)
-            {
-                if(artRoom == room) {
-                    artString += artRoom.GetAllArtInRoomString();
-                }
-            }
-            return artString;
-        }
-
         public int GetRoomsListCount()
         {
             return this.museumRooms.Count;
-        }
-        public string GetRoomName()
-        {
-            string roomName = "";
-            foreach(var room in this.museumRooms)
-            {
-                roomName = $"{room.GetRoomNameString()}";
-            }
-            return roomName;
         }
     }
 }
