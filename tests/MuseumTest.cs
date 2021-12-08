@@ -141,7 +141,7 @@ namespace tests
             var artwork1 = new Art("En hund bakom ratten", "En bild som måste upplevas för att förstås", "Lyret");
             museum1.AddContent(room1);
             room1.AddContent(artwork1);
-
+            
             Assert.Throws<Exception>(() => museum1.DeleteContent(room1)); 
             // När koden för att ta bort rummet körs bör en Exception throwas och rummet kommer inte tas bort, är denna true stämmer utfallet
         }
