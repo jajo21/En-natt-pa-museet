@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace Museet.Models
 {
-	// TODO: Needs further work
    public class MuseumStorage
 	{
         Dictionary<string, Museum> museumDictionary;
@@ -19,7 +18,6 @@ namespace Museet.Models
             string museumName = museum.GetMuseumName();
             museumDictionary.Add(museumName, museum);
         } 
-
         public string GetAllMuseumNames()
         {
             string museumName = "";
