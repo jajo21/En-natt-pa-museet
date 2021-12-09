@@ -15,7 +15,7 @@ namespace tests
             room1.AddContent(artwork1);
             var expected = 1;
 
-            Assert.Equal(expected, room1.GetArtListCount());
+            Assert.Equal(expected, room1.GetListCount());
         }
         [Fact]
         public void WriteOutAllArtsInMuseum() // Visar at det går att skriva ut allt innehåll i valt museum
@@ -50,7 +50,7 @@ namespace tests
             museum.AddContent(room1);
             room1.DeleteContent(artwork1); // Tar bort 1 konstverk från room1
             
-            int artCount = museum.GetRoomList()[0].GetArtListCount(); // Kollar i rätt rum i museet hur många konstverk som ligger i listan
+            int artCount = museum.GetList()[0].GetListCount(); // Kollar i rätt rum i museet hur många konstverk som ligger i listan
             
             Assert.Equal(1, artCount); // Resultatet bör vara 1 konstverk kvar i konstverkslistan
         }
@@ -62,7 +62,7 @@ namespace tests
             museum.AddContent(new Room("testroom1"));
             museum.AddContent(new Room("testroom2"));
 
-            Assert.Equal(2, museum.GetRoomsListCount());
+            Assert.Equal(2, museum.GetListCount());
         }
         [Fact]
         public void DeleteRoomInMuseum() // Testar metoden som tar bort rum från museet
@@ -75,7 +75,7 @@ namespace tests
             museum.AddContent(room2);
             museum.DeleteContent(room1);
 
-            Assert.Equal(1, museum.GetRoomsListCount());
+            Assert.Equal(1, museum.GetListCount());
         }
 
         [Fact]
@@ -88,8 +88,8 @@ namespace tests
             museumCollection.AddContent(museum1);
             museumCollection.AddContent(museum2);
 
-            Assert.Equal(2, museumCollection.GetMuseumCount()); // Kollar att summan i dictionaryn stämmer
-            Assert.Equal("museum2", museumCollection.GetMuseumDictionary()["museum2"].GetMuseumName()); // Kollar att rätt museum finns där
+            Assert.Equal(2, museumCollection.GetDictionaryCount()); // Kollar att summan i dictionaryn stämmer
+            Assert.Equal("museum2", museumCollection.GetDictionary()["museum2"].GetMuseumName()); // Kollar att rätt museum finns där
         }
         [Fact]
         public void ShouldNotBeAbleToAddMoreThanThreeArtsToRoom() // Kollar att man verkligen inte kan lägga till mer än 3 konstverk i rummen
@@ -105,7 +105,7 @@ namespace tests
             room1.AddContent(artwork3);
             room1.AddContent(artwork4); //Har lagt till 4 konstverk
 
-            var roomCount = room1.GetArtListCount(); 
+            var roomCount = room1.GetListCount(); 
 
             Assert.Equal(3, roomCount); //Roomcounten borde ändå vara 3 eftersom den inte kan lägga till 4
         }
@@ -120,7 +120,7 @@ namespace tests
             room1.AddContent(artwork1);
             room1.AddContent(artwork2);
             room1.AddContent(artwork3);
-            bool trueIfRoomIsFull = room1.isArtListFull();
+            bool trueIfRoomIsFull = room1.isRoomFull();
 
             Assert.True(trueIfRoomIsFull); // Om testet går igenom visar metoden att rummet är fullt
         }
@@ -129,7 +129,7 @@ namespace tests
         {
             var room1 = new Room("testroom1");
 
-            bool trueIfRoomIsEmpty = room1.isArtListEmpty();
+            bool trueIfRoomIsEmpty = room1.isRoomEmpty();
 
             Assert.True(trueIfRoomIsEmpty);
         }

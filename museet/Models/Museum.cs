@@ -17,7 +17,7 @@ namespace Museet.Models
         }
         public void DeleteContent(Room roomToDelete)
         {
-            if(roomToDelete.isArtListEmpty())
+            if(roomToDelete.isRoomEmpty())
             {
                this.museumRooms.Remove(roomToDelete); 
             }
@@ -26,7 +26,7 @@ namespace Museet.Models
         public string GetMuseumName() {
             return this.museumName;
         }
-        public List<Room> GetRoomList()
+        public List<Room> GetList()
         {
             return museumRooms;
         }
@@ -38,7 +38,7 @@ namespace Museet.Models
             }
             return roomString;
         }        
-        public int GetRoomsListCount()
+        public int GetListCount()
         {
             return this.museumRooms.Count;
         }

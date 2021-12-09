@@ -11,7 +11,7 @@
 			this.description = description;
 			this.artist = artist;
 		}
-		public string GetArtInformationString() {
+		public string GetArtString() {
 			return $"{this.title}, {this.description}, {this.artist}";
 		}
 	}

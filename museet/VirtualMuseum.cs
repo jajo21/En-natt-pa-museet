@@ -7,7 +7,7 @@ namespace Museet
     internal class VirtualMuseumProgram : IApplication
     {
         MuseumCollection museumCollection;
-        TestMuseum testMuseum; 
+        TestMuseum testMuseum; // Frivillig att använda, lägger till ett testmuseum (namn = bilmuseum).
         public VirtualMuseumProgram()
         {
             museumCollection = new MuseumCollection();
@@ -24,7 +24,7 @@ namespace Museet
                         System.Console.WriteLine("[MU] Inget museum valt. Skriv [mu help] för hjälp!");
                         throw new Exception("Mu error!");
                     }
-                    else if(!museumCollection.GetMuseumDictionary().ContainsKey(options[0])) 
+                    else if(!museumCollection.GetDictionary().ContainsKey(options[0])) 
                     {
                         Console.WriteLine("Museumet finns inte, skriv [mu show museums] för att se vilka museum som finns tillgängliga.");
                         Console.WriteLine("Eller skriv [mu help] för att se överiga kommandon.");
@@ -112,7 +112,7 @@ namespace Museet
         // Väljer vilket museum användaren ska vara på
         public void SelectMuseum(string museumChoice)
         {
-            if (museumChoice == museumCollection.GetMuseumDictionary()[museumChoice].GetMuseumName()) // Om museumnamn-inputen finns i dictionaryn
+            if (museumChoice == museumCollection.GetDictionary()[museumChoice].GetMuseumName()) // Om museumnamn-inputen finns i dictionaryn
             {
                 museumCollection.SetVisitingMuseum(museumChoice); // Sätt värdet på visiting variabeln till samma namn
                 Console.WriteLine($"Du är nu på museumet {museumChoice}!");
@@ -127,11 +127,11 @@ namespace Museet
             }
             else
             {
-                foreach (var museum in museumCollection.GetMuseumDictionary())
+                foreach (var museum in museumCollection.GetDictionary())
                 {
                     if (museumCollection.GetVisitingMuseumName() == museum.Key)
                     {
-                        if(museum.Value.GetRoomsListCount() == 0) {
+                        if(museum.Value.GetListCount() == 0) {
                             Console.WriteLine("Museet har för närvarande inga rum eller konstverk!");
                         }
                         else
@@ -154,12 +154,12 @@ namespace Museet
             }
             else
             {
-                foreach (var museum in museumCollection.GetMuseumDictionary())
+                foreach (var museum in museumCollection.GetDictionary())
                 {
                     if (museumCollection.GetVisitingMuseumName() == museum.Key)
                     {
                         bool isRoomInMuseum = false;
-                        foreach (var room in museum.Value.GetRoomList())
+                        foreach (var room in museum.Value.GetList())
                         {
                             if (roomName == room.GetRoomNameString())
                             {
@@ -186,7 +186,7 @@ namespace Museet
             else
             {
                 Console.WriteLine("Du måste skriva minst ett tecken för att skapa ett nytt museum!");
-                Console.WriteLine("Testa igen!");
+                Console.WriteLine("Testa igen! Eller skriv [mu help] för hjälp");
             }
         }
         //Lägger till ett nytt rum i museumet
@@ -200,7 +200,7 @@ namespace Museet
                 }
                 else
                 {
-                    foreach (var museum in museumCollection.GetMuseumDictionary())
+                    foreach (var museum in museumCollection.GetDictionary())
                     {
                         if (museumCollection.GetVisitingMuseumName() == museum.Key)
                         {
@@ -213,7 +213,7 @@ namespace Museet
             else
             {
                 Console.WriteLine("Du måste skriva minst ett tecken för att skapa ett nytt rum!");
-                Console.WriteLine("Testa igen!");
+                Console.WriteLine("Testa igen! Eller skriv [mu help] för hjälp");
             }
         }
         //Lägger till ett nytt konstverk i valt rum om inputen är korrekt och användaren har valt museum
@@ -227,17 +227,17 @@ namespace Museet
                 }
                 else
                 {
-                    foreach (var museum in museumCollection.GetMuseumDictionary()) // hittar alla museum i Dictionaryn
+                    foreach (var museum in museumCollection.GetDictionary()) // hittar alla museum i Dictionaryn
                     {
                         if (museumCollection.GetVisitingMuseumName() == museum.Key) // om det museum du besöker(visiting variabeln i MuseumCollection) stämmer överens med keyn i dictionaryn
                         {
                             bool isRoomInMuseum = false;
-                            foreach (var room in museum.Value.GetRoomList()) // hitta alla rum i rumslistan
+                            foreach (var room in museum.Value.GetList()) // hitta alla rum i rumslistan
                             {
                                 
                                 if (roomName == room.GetRoomNameString()) // om användarens input är samma som ett rumsnamn i listan
                                 {
-                                    if (room.isArtListFull()) // om rumslistan är full
+                                    if (room.isRoomFull()) // om rumslistan är full
                                     {
                                         Console.WriteLine("Rummet är tyvärr fullt. Testa att fylla på ett annat rum!");
                                     }
@@ -265,6 +265,11 @@ namespace Museet
                     }
                 }
             }
+            else
+            {
+                Console.WriteLine("Du måste skriva ett rumsnamn också för att kunna lägga till konst i rätt rum!");
+                Console.WriteLine("Testa igen! Eller skriv [mu help] för hjälp");
+            }
         }
         // Ta bort ett konstverk från valt rum, logiken ser snarlik ut som metoden ovanför när man lägger till konst
         private void DeleteArtFromRoom(string roomName, string artPosition)
@@ -275,18 +280,18 @@ namespace Museet
             }
             else
             {
-                foreach (var museum in museumCollection.GetMuseumDictionary())
+                foreach (var museum in museumCollection.GetDictionary())
                 {
                     if (museumCollection.GetVisitingMuseumName() == museum.Key)
                     {
                         bool isRoomInMuseum = false;
-                        foreach (var room in museum.Value.GetRoomList())
+                        foreach (var room in museum.Value.GetList())
                         {
                             if (roomName == room.GetRoomNameString())
                             {
                                 try
                                 {
-                                    room.DeleteContent(room.GetArtList()[Convert.ToInt32(artPosition) - 1]);
+                                    room.DeleteContent(room.GetList()[Convert.ToInt32(artPosition) - 1]);
                                     Console.WriteLine($"Konstverket är nu borttaget!");
                                 }
                                 catch
@@ -314,12 +319,12 @@ namespace Museet
             }
             else
             {
-                foreach (var museum in museumCollection.GetMuseumDictionary())
+                foreach (var museum in museumCollection.GetDictionary())
                 {
                     if (museumCollection.GetVisitingMuseumName() == museum.Key)
                     {
                         bool isRoomInMuseum = false;
-                        foreach (var room in museum.Value.GetRoomList())
+                        foreach (var room in museum.Value.GetList())
                         {
                             if (roomName == room.GetRoomNameString())
                             {

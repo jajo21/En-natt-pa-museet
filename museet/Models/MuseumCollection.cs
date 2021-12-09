@@ -43,11 +43,11 @@ namespace Museet.Models
         public string GetVisitingMuseumName(){
             return this.visiting;
         }
-        public Dictionary<string, Museum> GetMuseumDictionary () 
+        public Dictionary<string, Museum> GetDictionary () 
         {
             return museumDictionary;
         }
-        public int GetMuseumCount() {
+        public int GetDictionaryCount() {
             return museumDictionary.Count;
         }
     }

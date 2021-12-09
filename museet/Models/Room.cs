@@ -14,7 +14,7 @@ namespace Museet.Models
         }
         public void AddContent(Art artToAdd)
         {
-            if (!isArtListFull())
+            if (!isRoomFull())
             {
                 artList.Add(artToAdd);
             }
@@ -27,7 +27,7 @@ namespace Museet.Models
         {
             return this.roomName;
         }
-        public bool isArtListEmpty()
+        public bool isRoomEmpty()
         {
             if (artList.Count == 0)
             {
@@ -35,7 +35,7 @@ namespace Museet.Models
             }
             else return false;
         }
-		public bool isArtListFull()
+		public bool isRoomFull()
 		{
 			if (artList.Count == 3)
             {
@@ -43,11 +43,11 @@ namespace Museet.Models
             }
             else return false;
 		}
-        public int GetArtListCount()
+        public int GetListCount()
         {
             return artList.Count;
         }
-        public List<Art> GetArtList()
+        public List<Art> GetList()
         {
             return artList;
         }
@@ -55,7 +55,7 @@ namespace Museet.Models
         {
             string artString = "";
             int count = 1;
-            if (isArtListEmpty())
+            if (isRoomEmpty())
             {
                 artString += "-- Rummet är tomt -- \n";
             }
@@ -63,7 +63,7 @@ namespace Museet.Models
             {
                 foreach (var art in artList)
                 {
-                    artString += $"{count}: {art.GetArtInformationString()}\n";
+                    artString += $"{count}: {art.GetArtString()}\n";
                     count++;
                 }
             }
