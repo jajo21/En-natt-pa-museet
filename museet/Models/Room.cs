@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Museet.Models
 {
-    // TODO: Needs further work
+    // Klassen Room innehåller ett rumsnamn och en lista på konst som finns i rummet
     public class Room
     {
         string roomName;
@@ -15,7 +14,7 @@ namespace Museet.Models
         }
         public void AddContent(Art artToAdd)
         {
-            if (!isArtListFull()) // ifsats överflöding i nuvarande uppbyggnad, men ställer inte till något
+            if (!isArtListFull())
             {
                 artList.Add(artToAdd);
             }
@@ -44,7 +43,7 @@ namespace Museet.Models
             }
             else return false;
 		}
-        public int GetRoomArtListCount()
+        public int GetArtListCount()
         {
             return artList.Count;
         }
@@ -71,6 +70,5 @@ namespace Museet.Models
 
             return artString;
         }
-
     }
 }

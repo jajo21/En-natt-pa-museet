@@ -1,9 +1,5 @@
-﻿
-using System.Collections.Generic;
-
-namespace Museet.Models
+﻿namespace Museet.Models
 {
-	// TODO: Needs further work
    public class Art
 	{
 		string title;

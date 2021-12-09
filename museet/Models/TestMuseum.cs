@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-
 namespace Museet.Models
 {
 	// Testmuseum som är fritt fram att använda om man inte orkar lägga till alla testdelar själv. 
     // Har enbart gjort en konstruktor som lägger till alla delarna för enkelhetens skull.
    public class TestMuseum
 	{
-		public TestMuseum(MuseumStorage museumStorage)
+		public TestMuseum(MuseumCollection museumStorage)
 		{
 			var bilmuseum = new Museum("bilmuseum");
             var room1 = new Room("baksätet");

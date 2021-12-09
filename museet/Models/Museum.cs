@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 
@@ -8,14 +7,13 @@ namespace Museet.Models
 	{
         List<Room> museumRooms;
         string museumName;
-
         public Museum(string museumName) 
         {
             this.museumName = museumName;
             this.museumRooms = new List<Room>();
         }
-        public void AddContent(Room room) {
-            this.museumRooms.Add(room);
+        public void AddContent(Room roomToAdd) {
+            this.museumRooms.Add(roomToAdd);
         }
         public void DeleteContent(Room roomToDelete)
         {
@@ -32,7 +30,6 @@ namespace Museet.Models
         {
             return museumRooms;
         }
-
         public string GetRoomAndArtStrings()
         {
             string roomString = "";

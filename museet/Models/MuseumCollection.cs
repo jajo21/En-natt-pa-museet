@@ -1,15 +1,14 @@
-
-using System;
 using System.Collections.Generic;
 
 namespace Museet.Models
 {
-   public class MuseumStorage
+    // MuseumCollection är en klass som tar hand om lagringen av nyskapade museum i en dictionary och dess nödvändiga metoder.
+    public class MuseumCollection
 	{
         Dictionary<string, Museum> museumDictionary;
         string visiting;
 
-        public MuseumStorage() {
+        public MuseumCollection() {
             museumDictionary = new Dictionary<string, Museum>();
             this.visiting = "";
         }
