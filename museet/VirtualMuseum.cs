@@ -11,7 +11,7 @@ namespace Museet
         public VirtualMuseumProgram()
         {
             museumCollection = new MuseumCollection();
-            testMuseum = new TestMuseum(museumCollection); // Frivillig att använda, lägger till ett testmuseum (namn = bilmuseum).
+            testMuseum = new TestMuseum(museumCollection); // Frivillig att använda, lägger till ett testmuseum i musemCollection (namn = bilmuseum).
         }
 
         public void Run(string verb, string[] options)
