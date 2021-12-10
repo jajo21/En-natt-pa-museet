@@ -115,7 +115,7 @@ namespace Museet
             if (museumChoice == museumCollection.GetDictionary()[museumChoice].GetMuseumName()) // Om museumnamn-inputen finns i dictionaryn
             {
                 museumCollection.SetVisitingMuseum(museumChoice); // Sätt värdet på visiting variabeln till samma namn
-                Console.WriteLine($"Du är nu på museumet {museumChoice}!");
+                Console.WriteLine($"Du är nu på museet {museumChoice}!");
             }
         }
         // Visar alla rum och all konst i museet du befinner dig på
@@ -332,13 +332,13 @@ namespace Museet
                                 {
                                     museum.Value.DeleteContent(room);
                                     Console.WriteLine($"Rummet {room.GetRoomNameString()} är nu borttaget");
-                                    isRoomInMuseum = true;
                                     break;
                                 }
                                 catch (Exception ex)
                                 {
                                     System.Console.WriteLine(ex.Message);
                                 }
+                                isRoomInMuseum = true;
                             }
                         }
                         if(!isRoomInMuseum)
