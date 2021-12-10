@@ -36,7 +36,6 @@ namespace tests
             Assert.Contains("En bild som", museumString);
             Assert.Contains("testkonstnär", museumString);
         }
-        
         [Fact]
         public void DeleteArtFromRoom() // Kollar att det går att ta bort saker från rum
         {
@@ -49,13 +48,13 @@ namespace tests
             room1.AddContent(artwork2); // Adderar 2 stycken konstverk till room1
             museum.AddContent(room1);
             room1.DeleteContent(artwork1); // Tar bort 1 konstverk från room1
-            
+
             int artCount = museum.GetList()[0].GetListCount(); // Kollar i rätt rum i museet hur många konstverk som ligger i listan
-            
+
             Assert.Equal(1, artCount); // Resultatet bör vara 1 konstverk kvar i konstverkslistan
         }
         [Fact]
-        public void AddNewRoomToMuseum() // Testar metoden för att lägga till nytt rum till museet
+        public void AddNewRoomToMuseum() // Testar metoden för att lägga till ett nytt rum i museet
         {
             var museum = new Museum("museum1");
 
@@ -77,14 +76,13 @@ namespace tests
 
             Assert.Equal(1, museum.GetListCount());
         }
-
         [Fact]
         public void AddMuseumToDictionary() //Kollar att det går att lägga till nya och olika museum i MuseumStorage Dicionary
         {
             var museumCollection = new MuseumCollection();
             var museum1 = new Museum("museum1");
             var museum2 = new Museum("museum2");
-            
+
             museumCollection.AddContent(museum1);
             museumCollection.AddContent(museum2);
 
@@ -105,7 +103,7 @@ namespace tests
             room1.AddContent(artwork3);
             room1.AddContent(artwork4); //Har lagt till 4 konstverk
 
-            var roomCount = room1.GetListCount(); 
+            var roomCount = room1.GetListCount();
 
             Assert.Equal(3, roomCount); //Roomcounten borde ändå vara 3 eftersom den inte kan lägga till 4
         }
@@ -141,10 +139,9 @@ namespace tests
             var artwork1 = new Art("En hund bakom ratten", "En bild som måste upplevas för att förstås", "Lyret");
             museum1.AddContent(room1);
             room1.AddContent(artwork1);
-            
-            Assert.Throws<Exception>(() => museum1.DeleteContent(room1)); 
-            // När koden för att ta bort rummet körs bör en Exception throwas och rummet kommer inte tas bort, är denna true stämmer utfallet
+
+            Assert.Throws<Exception>(() => museum1.DeleteContent(room1));
+            // När koden för att ta bort rummet körs bör en Exception throwas eftersom rummet innehåller konstverk och rummet kommer inte tas bort, är testet true stämmer utfallet.
         }
-        
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Museet.Models
 {
-    // Klassen Room innehåller ett rumsnamn och en lista på konst som finns i rummet
+    // Klassen Room innehåller ett rumsnamn och en lista på konst som finns i rummet.
     public class Room
     {
         string roomName;
@@ -35,14 +35,14 @@ namespace Museet.Models
             }
             else return false;
         }
-		public bool isRoomFull()
-		{
-			if (artList.Count == 3)
+        public bool isRoomFull()
+        {
+            if (artList.Count == 3)
             {
                 return true;
             }
             else return false;
-		}
+        }
         public int GetListCount()
         {
             return artList.Count;

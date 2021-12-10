@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Museet.Models
 {
-    // MuseumCollection är en klass som tar hand om lagringen av nyskapade museum i en dictionary och dess nödvändiga metoder.
+    // MuseumCollection är en klass som tar hand om lagringen av nyskapade museum i en dictionary och dess nödvändiga metoder. 
     public class MuseumCollection
     {
         Dictionary<string, Museum> museumDictionary;
