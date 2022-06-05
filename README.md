@@ -1,0 +1,2 @@
+# En-natt-pa-museet
+Jag jobbar i det här scenariot som frilansande programmerare år 1979 och har fått ett uppdrag att göra ett modernt arbetsverkyg till ett konstmuseum, som personalen kan använda från deras splirrans ny datorterminal. Datorn har alla moderna program installerade man kan tänkas behöva - men personalen skulle behöva ett arbetsverktyg för att hålla koll på och inventera deras olika rum och konstverk! Du har pitchat en idé att programmet ska fungera precis som alla andra program via command line arguments - vilket personalen är väldigt positivt inställda till.
