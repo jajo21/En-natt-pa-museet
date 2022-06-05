@@ -32,15 +32,12 @@
 |**9** |**Ja**| *Varje konstverk representeras i kod via en **titel**, **beskrivning** och en **upphovsmakare***|
 |**10** |**Ja**| *Endast 3 konstverk kan finnas i varje rum.*|
 |**11** |**Ja**| *Ett rum kan inte raderas om det finns konstverk i rummet.*|
-||||
 |**12** |**Ja**| *Med applikationen 'mu' kan man skapa ett helt nytt museum/byggnad.*|
 |**13** |**Ja**| *Via applikationen 'mu' kan man med kommandot 'select' välja vilken vald byggnad övriga kommandon utförs på, man behöver inte alltid ange vilket museeum som används.*|
 |**14** |**Ja**| *Koden är strukturad på ett sådant sätt att Console klassen är väl separerad från programmets modellklasser (i.e. "konstverk" och "rum") - så att dessa går att återanvända i framtida applikationer*|
-||||
 |**15** |**Ja**| *Repot ska lämnas in med minst **3 enhetstester** implementerade.*|
 |**16** |**Ja**| *Enhetstesterna bevisar att flera museum/byggnader kan finnas med olika uppställningar av konstverk och rum.*|
 |**17** |**Ja**| *Enhetstesterna bevisar att reglerna i krav _10_ & _11_ alltid efterföljs.*|
-||||
 |**18** |**Ja**| *Lösningen ska förutom kod innehålla en fil med namnet "reflections" i formatet _md_, _txt_ eller _pdf_.*|
 |**19** |**Ja**| *reflections_-filen ska under rubriken "Kommandon" innehålla en **kortfattad** beskrivning av vilka _verb_ som är tillgängliga i din applikation och vad som anges som ytterligare argument för varje verb - - varför dessa är lämpliga argument till verbet.*|
 |**20** |**Ja**| *reflections_-filen ska under rubriken "Seperation" beskriva hur du har seperarat användningen av _System.Consol_ från dina modell-klasser. (1-4 paragrafer)*|
